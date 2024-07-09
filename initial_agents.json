@@ -1,0 +1,182 @@
+[
+    {
+        "id": "1",
+        "name": "Monitoring and Identification Agent",
+        "description": "This agent focuses on the initial stages of detecting and categorizing questions using Discord's API.",
+        "tasks": [
+            {
+                "description": "Monitor Discord channels using Discord API",
+                "reasoning": "Necessary for continuous monitoring of new messages in the Discord server",
+                "complexity": "3"
+            },
+            {
+                "description": "Identify Questions using Natural Language Processing",
+                "reasoning": "Required to accurately detect questions within messages",
+                "complexity": "3"
+            },
+            {
+                "description": "Analyze and Categorize Questions",
+                "reasoning": "Essential for proper routing and handling of questions",
+                "complexity": "4"
+            }
+        ],
+        "documentation": [
+            {
+                "description": "Comprehensive information about the Discord server, including rules, guidelines, and common topics",
+                "reasoning": "Needed to accurately identify and categorize questions within the server's context",
+                "location": ""
+            }
+        ],
+        "trigger": "Continuous monitoring of new messages in the Discord server",
+        "reasoning": "This agent is crucial for initiating the question-answering process by detecting and categorizing incoming questions"
+    },
+    {
+        "id": "2",
+        "name": "Response Generation Agent",
+        "description": "This agent handles the creation or retrieval of appropriate responses, utilizing the knowledge base and external resources.",
+        "tasks": [
+            {
+                "description": "Access and query internal knowledge base",
+                "reasoning": "Necessary to retrieve relevant information for generating responses",
+                "complexity": "2"
+            },
+            {
+                "description": "Generate or Retrieve Response",
+                "reasoning": "Core function of creating appropriate answers to questions",
+                "complexity": "4"
+            },
+            {
+                "description": "Research using trusted external websites if necessary",
+                "reasoning": "Allows for gathering additional information when the knowledge base is insufficient",
+                "complexity": "3"
+            },
+            {
+                "description": "Human Interaction Management for Complex Questions",
+                "reasoning": "Ensures proper handling of questions that require human expertise",
+                "complexity": "3"
+            }
+        ],
+        "documentation": [
+            {
+                "description": "Detailed information about the server to formulate accurate responses",
+                "reasoning": "Essential for generating context-appropriate and accurate responses",
+                "location": ""
+            },
+            {
+                "description": "List of approved external websites for additional research",
+                "reasoning": "Needed when the knowledge base doesn't contain sufficient information",
+                "location": ""
+            }
+        ],
+        "trigger": "Receives a categorized question from the Monitoring and Identification Agent",
+        "reasoning": "This agent is responsible for creating or retrieving appropriate responses to questions, which is a core function of the system"
+    },
+    {
+        "id": "3",
+        "name": "Response Review and Posting Agent",
+        "description": "This agent manages the final stages of response preparation and posting, ensuring adherence to server guidelines and proper formatting.",
+        "tasks": [
+            {
+                "description": "Review and Refine Response",
+                "reasoning": "Ensures responses meet quality standards and adhere to server guidelines",
+                "complexity": "5"
+            },
+            {
+                "description": "Post Response using Discord API",
+                "reasoning": "Delivers the final response to the user in the Discord server",
+                "complexity": "2"
+            },
+            {
+                "description": "Human Interaction Management for Approvals",
+                "reasoning": "Allows for human oversight on sensitive or complex responses",
+                "complexity": "2"
+            }
+        ],
+        "documentation": [
+            {
+                "description": "Guidelines for structuring responses and using appropriate formatting",
+                "reasoning": "Ensures consistency in tone and formatting across all responses",
+                "location": ""
+            },
+            {
+                "description": "Guidelines for when and how to escalate issues to human administrators",
+                "reasoning": "Needed to handle complex or sensitive situations appropriately",
+                "location": ""
+            }
+        ],
+        "trigger": "Receives a generated response from the Response Generation Agent",
+        "reasoning": "This agent is crucial for ensuring the quality and appropriateness of responses before they are posted to the Discord server"
+    },
+    {
+        "id": "4",
+        "name": "Knowledge Management and Ticketing Agent",
+        "description": "This agent focuses on maintaining the knowledge base and managing a ticketing system for tracking questions.",
+        "tasks": [
+            {
+                "description": "Implement and manage ticketing system",
+                "reasoning": "Allows for efficient tracking and management of questions and responses",
+                "complexity": "4"
+            },
+            {
+                "description": "Learn and Update Knowledge Base",
+                "reasoning": "Keeps the knowledge base current and improves its accuracy over time",
+                "complexity": "4"
+            },
+            {
+                "description": "Update FAQs based on common questions",
+                "reasoning": "Improves efficiency by addressing frequently asked questions proactively",
+                "complexity": "3"
+            },
+            {
+                "description": "Periodic Human Review Management",
+                "reasoning": "Ensures human oversight and quality control of the knowledge base",
+                "complexity": "3"
+            }
+        ],
+        "documentation": [
+            {
+                "description": "The knowledge base itself, which this agent updates and maintains",
+                "reasoning": "Essential for the agent's primary function of knowledge management",
+                "location": ""
+            }
+        ],
+        "trigger": "Receives a signal from the Response Review and Posting Agent after a response has been posted, or receives a scheduled trigger for periodic reviews",
+        "reasoning": "This agent is essential for maintaining and improving the system's knowledge base, which is crucial for providing accurate and up-to-date responses"
+    },
+    {
+        "id": "5",
+        "name": "Analytics and Community Engagement Agent",
+        "description": "This agent handles data collection, reporting, and supports community engagement initiatives.",
+        "tasks": [
+            {
+                "description": "Generate Analytics and Reports",
+                "reasoning": "Provides insights into system performance and user engagement",
+                "complexity": "2"
+            },
+            {
+                "description": "Track response times and user satisfaction",
+                "reasoning": "Helps measure and improve the quality of service",
+                "complexity": "3"
+            },
+            {
+                "description": "Analyze common issues for proactive addressing",
+                "reasoning": "Allows for continuous improvement of the system and user experience",
+                "complexity": "3"
+            },
+            {
+                "description": "Support community member engagement in answering questions",
+                "reasoning": "Encourages community participation and reduces load on the automated system",
+                "complexity": "3"
+            }
+        ],
+        "documentation": [
+            {
+                "description": "Guidelines for structuring responses and using appropriate formatting",
+                "reasoning": "Needed to analyze response quality and consistency in community engagement",
+                "location": ""
+            }
+        ],
+        "trigger": "Receives regular scheduled triggers and signals from other agents when specific events occur (e.g., response posted, human intervention required)",
+        "reasoning": "This agent is important for monitoring system performance, improving user satisfaction, and fostering community engagement"
+    }
+]

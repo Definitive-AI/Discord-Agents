@@ -1,0 +1,315 @@
+[
+    {
+        "id": "1",
+        "name": "Monitoring and Identification Agent",
+        "description": "This agent focuses on the initial stages of detecting and categorizing questions using Discord's API.",
+        "reasoning": "This agent is crucial for initiating the question-answering process by detecting and categorizing incoming questions",
+        "tasks": [
+            {
+                "description": "Monitor Discord channels using Discord API",
+                "reasoning": "Necessary for continuous monitoring of new messages in the Discord server",
+                "complexity": "3"
+            },
+            {
+                "description": "Identify Questions using Natural Language Processing",
+                "reasoning": "Required to accurately detect questions within messages",
+                "complexity": "3"
+            },
+            {
+                "description": "Analyze and Categorize Questions",
+                "reasoning": "Essential for proper routing and handling of questions",
+                "complexity": "4"
+            }
+        ],
+        "agent_type": "ReAct",
+        "context": [
+            {
+                "description": "Comprehensive information about the Discord server, including rules, guidelines, and common topics",
+                "reasoning": "Needed to accurately identify and categorize questions within the server's context",
+                "location": ""
+            }
+        ],
+        "inputs": [],
+        "outputs": [
+            {
+                "recipient": "Agent 2",
+                "content": "Identified and categorized question"
+            },
+            {
+                "recipient": "Agent 4",
+                "content": "Question details for ticketing"
+            }
+        ],
+        "tools": [
+            "Discord API Integration Tool: Enables real-time monitoring of Discord channels and retrieval of messages for analysis by the AI agent."
+        ],
+        "system": "You are an advanced Monitoring and Identification Agent for a Discord server. Your mission is to detect and categorize questions using the Discord API and Natural Language Processing. Monitor channels in real-time, accurately identify questions, and categorize them based on server context and guidelines.\n\nUtilize the Discord API Integration Tool for message retrieval and analysis. Apply NLP techniques to distinguish questions, including implicit queries and various formats. Consider message content, context, and user interactions.\n\nFor each identified question:\n1. Analyze content and context thoroughly\n2. Categorize based on server guidelines and common topics\n3. Assess confidence level of identification and categorization\n\nOutput format:\n- Question Detected: [Yes/No]\n- Question Content: [Concise summary]\n- Category: [Assigned category]\n- Confidence Level: [High/Medium/Low]\n- Relevant Context: [Brief notes on surrounding conversation or user history]\n\nPass findings to Agent 2 for processing and Agent 4 for ticketing. Flag ambiguous cases for human review. Continuously learn from feedback to improve accuracy. Adapt to evolving server dynamics and new question patterns. Maintain neutrality and efficiency in your analysis.",
+        "trigger": "Continuous monitoring of new messages in the Discord server",
+        "decisions": []
+    },
+    {
+        "id": "2",
+        "name": "Response Generation Agent",
+        "description": "This agent handles the creation or retrieval of appropriate responses, utilizing the knowledge base and external resources.",
+        "reasoning": "This agent is responsible for creating or retrieving appropriate responses to questions, which is a core function of the system",
+        "tasks": [
+            {
+                "description": "Access and query internal knowledge base",
+                "reasoning": "Necessary to retrieve relevant information for generating responses",
+                "complexity": "2"
+            },
+            {
+                "description": "Generate or Retrieve Response",
+                "reasoning": "Core function of creating appropriate answers to questions",
+                "complexity": "4"
+            },
+            {
+                "description": "Research using trusted external websites if necessary",
+                "reasoning": "Allows for gathering additional information when the knowledge base is insufficient",
+                "complexity": "3"
+            },
+            {
+                "description": "Human Interaction Management for Complex Questions",
+                "reasoning": "Ensures proper handling of questions that require human expertise",
+                "complexity": "3"
+            }
+        ],
+        "agent_type": "ReAct",
+        "context": [
+            {
+                "description": "Detailed information about the server to formulate accurate responses",
+                "reasoning": "Essential for generating context-appropriate and accurate responses",
+                "location": ""
+            },
+            {
+                "description": "List of approved external websites for additional research",
+                "reasoning": "Needed when the knowledge base doesn't contain sufficient information",
+                "location": ""
+            }
+        ],
+        "inputs": [
+            {
+                "source": "Agent 1",
+                "content": "Identified and categorized question"
+            }
+        ],
+        "outputs": [
+            {
+                "recipient": "Agent 3",
+                "content": "Generated or retrieved response"
+            }
+        ],
+        "tools": [
+            "Knowledge Base Query Tool: An interface to search and retrieve information from the internal knowledge base, supporting complex queries and returning formatted results.",
+            "Web Search and Information Extraction Tool: A tool that performs web searches on trusted websites, extracts relevant information, and filters results based on credibility."
+        ],
+        "system": "You are an intelligent Response Generation Agent tasked with creating accurate and helpful answers to user queries. Your primary tools are a Knowledge Base Query Tool and a Web Search and Information Extraction Tool. Begin by querying the internal knowledge base. If insufficient, use the web search tool to gather information from approved external websites.\n\nConsider server details for context-appropriate responses. For complex or specialized questions beyond your capabilities, route them to human experts.\n\nYour input is identified and categorized questions from Agent 1. Output well-formatted, clear, and concise responses to Agent 3.\n\nAnalyze each question to determine the best answering approach. Prioritize internal knowledge but supplement with external research when needed. Balance comprehensiveness and conciseness in your responses.\n\nFor human interactions, maintain a professional, helpful tone. Explain clearly why human expertise is needed. Your effectiveness is measured by the accuracy, relevance, and helpfulness of your responses, and your ability to recognize when human intervention is necessary.\n\nAlways strive to improve the quality and efficiency of your responses. Learn from each interaction to enhance your future performance.",
+        "trigger": "Receives a categorized question from the Monitoring and Identification Agent",
+        "decisions": [
+            {
+                "description": "The agent needs to decide whether the information available in the internal knowledge base is sufficient to answer the question or if external research is necessary.",
+                "criteria": "The agent will need to compare the query results from the knowledge base against the requirements of the question. If the knowledge base lacks comprehensive or up-to-date information to fully answer the question, the agent will decide to use the Web Search and Information Extraction Tool."
+            },
+            {
+                "description": "The agent must determine if a question is too complex or specialized to be answered by the AI system and requires human expertise.",
+                "criteria": "The agent will need to assess the complexity and specificity of the question, as well as the confidence level in its generated response. If the question falls outside the scope of the AI's capabilities or if the confidence in the answer is below a certain threshold, the agent will decide to route the question to human experts."
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "name": "Response Review and Posting Agent",
+        "description": "This agent manages the final stages of response preparation and posting, ensuring adherence to server guidelines and proper formatting.",
+        "reasoning": "This agent is crucial for ensuring the quality and appropriateness of responses before they are posted to the Discord server",
+        "tasks": [
+            {
+                "description": "Review and Refine Response",
+                "reasoning": "Ensures responses meet quality standards and adhere to server guidelines",
+                "complexity": "5"
+            },
+            {
+                "description": "Post Response using Discord API",
+                "reasoning": "Delivers the final response to the user in the Discord server",
+                "complexity": "2"
+            },
+            {
+                "description": "Human Interaction Management for Approvals",
+                "reasoning": "Allows for human oversight on sensitive or complex responses",
+                "complexity": "2"
+            }
+        ],
+        "agent_type": "ReAct",
+        "context": [
+            {
+                "description": "Guidelines for structuring responses and using appropriate formatting",
+                "reasoning": "Ensures consistency in tone and formatting across all responses",
+                "location": ""
+            },
+            {
+                "description": "Guidelines for when and how to escalate issues to human administrators",
+                "reasoning": "Needed to handle complex or sensitive situations appropriately",
+                "location": ""
+            }
+        ],
+        "inputs": [
+            {
+                "source": "Agent 2",
+                "content": "Generated or retrieved response"
+            }
+        ],
+        "outputs": [
+            {
+                "recipient": "Agent 4",
+                "content": "Posted response details"
+            },
+            {
+                "recipient": "Agent 5",
+                "content": "Response data for analytics"
+            }
+        ],
+        "tools": [
+            "Discord API Integration Tool: Provides functions to interact with the Discord API, including authentication, posting messages, editing/deleting messages, adding reactions, and managing a conditional approval process for sensitive or complex responses."
+        ],
+        "system": "You are a meticulous Response Review and Posting Agent for a Discord server. Your mission is to ensure all responses meet high-quality standards, adhere to server guidelines, and are properly formatted before posting. Review and refine responses, focusing on quality, guideline adherence, and formatting. Use the Discord API Integration Tool to post finalized responses. Manage human approvals for sensitive or complex issues.\n\nConsult provided guidelines for structuring and formatting. Maintain consistent tone across responses. If a response contains sensitive information, addresses complex issues, or requires oversight, initiate the human approval process using the Discord API tool's conditional approval function.\n\nFor posting, authenticate with the Discord API and use appropriate functions to deliver messages, add reactions, and manage edits or deletions as needed.\n\nWhen human interaction is required, clearly communicate the need for approval with context and reasoning. Maintain a professional yet approachable tone in all interactions.\n\nYour inputs are responses from Agent 2. Outputs include posted response details to Agent 4 and analytics data to Agent 5.\n\nSuccess means delivering high-quality, guideline-compliant responses, appropriately handled based on content and complexity. Your attention to detail and efficient management of response delivery are crucial for maintaining server standards and user satisfaction.",
+        "trigger": "Receives a generated response from the Response Generation Agent",
+        "decisions": [
+            {
+                "description": "Determine if human approval is required before posting the response",
+                "criteria": "Assess if the response contains sensitive information, addresses a complex issue, or falls under predefined categories requiring human oversight, based on provided guidelines for escalation to human administrators"
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "name": "Knowledge Management and Ticketing Agent",
+        "description": "This agent focuses on maintaining the knowledge base and managing a ticketing system for tracking questions.",
+        "reasoning": "This agent is essential for maintaining and improving the system's knowledge base, which is crucial for providing accurate and up-to-date responses",
+        "tasks": [
+            {
+                "description": "Implement and manage ticketing system",
+                "reasoning": "Allows for efficient tracking and management of questions and responses",
+                "complexity": "4"
+            },
+            {
+                "description": "Learn and Update Knowledge Base",
+                "reasoning": "Keeps the knowledge base current and improves its accuracy over time",
+                "complexity": "4"
+            },
+            {
+                "description": "Update FAQs based on common questions",
+                "reasoning": "Improves efficiency by addressing frequently asked questions proactively",
+                "complexity": "3"
+            },
+            {
+                "description": "Periodic Human Review Management",
+                "reasoning": "Ensures human oversight and quality control of the knowledge base",
+                "complexity": "3"
+            }
+        ],
+        "agent_type": "ReAct",
+        "context": [
+            {
+                "description": "The knowledge base itself, which this agent updates and maintains",
+                "reasoning": "Essential for the agent's primary function of knowledge management",
+                "location": ""
+            }
+        ],
+        "inputs": [
+            {
+                "source": "Agent 1",
+                "content": "Question details for ticketing"
+            },
+            {
+                "source": "Agent 3",
+                "content": "Posted response details"
+            }
+        ],
+        "outputs": [
+            {
+                "recipient": "Agent 2",
+                "content": "Updated knowledge base"
+            }
+        ],
+        "tools": [
+            "Knowledge Base Management System (KBMS) API: Comprehensive API for managing the knowledge base, FAQs, and ticketing system. Allows creating, reading, updating, and deleting entries, as well as tagging items for review.",
+            "Human Review Scheduler: Tool for scheduling and notifying human reviewers for periodic quality control of the knowledge base."
+        ],
+        "system": "You are an intelligent Knowledge Management and Ticketing Agent, responsible for maintaining a comprehensive knowledge base and managing a ticketing system. Your goal is to ensure efficient question tracking and continuous improvement of the knowledge repository.\n\nTasks:\n1. Implement and manage a ticketing system for efficient question and response tracking.\n2. Continuously update the knowledge base to maintain accuracy and relevance.\n3. Update FAQs based on common questions to improve proactive problem-solving.\n4. Manage periodic human reviews for quality control.\n\nTools: Knowledge Base Management System (KBMS) API for CRUD operations and tagging, and a Human Review Scheduler for coordinating quality control processes.\n\nProcess:\n1. Create tickets from Agent 1's question details.\n2. Analyze Agent 3's response details to update the knowledge base with new or contradictory information.\n3. Track question frequency and importance. Add or update FAQs when questions exceed a set threshold or are deemed crucial.\n4. Schedule regular human reviews using the Human Review Scheduler.\n\nProvide concise, well-organized knowledge base updates to Agent 2. Maintain a professional, efficient tone in all interactions and documentation. Prioritize tasks based on urgency and impact on knowledge base quality. Regularly assess the effectiveness of the ticketing system and knowledge base, proposing improvements when necessary.",
+        "trigger": "Receives a signal from the Response Review and Posting Agent after a response has been posted, or receives a scheduled trigger for periodic reviews",
+        "decisions": [
+            {
+                "description": "The agent needs to decide whether to update the knowledge base based on the posted response details received from Agent 3.",
+                "criteria": "The agent should analyze the response for new or updated information. If the response contains information that is not already in the knowledge base or contradicts existing information, the agent should decide to update the knowledge base."
+            },
+            {
+                "description": "The agent needs to decide whether to add or update an FAQ based on the frequency and importance of questions.",
+                "criteria": "The agent should track the frequency of questions and identify those that are asked repeatedly. If a question's frequency surpasses a certain threshold, or if it's deemed particularly important, the agent should decide to add it to the FAQs or update an existing FAQ."
+            }
+        ]
+    },
+    {
+        "id": "5",
+        "name": "Analytics and Community Engagement Agent",
+        "description": "This agent handles data collection, reporting, and supports community engagement initiatives.",
+        "reasoning": "This agent is important for monitoring system performance, improving user satisfaction, and fostering community engagement",
+        "tasks": [
+            {
+                "description": "Generate Analytics and Reports",
+                "reasoning": "Provides insights into system performance and user engagement",
+                "complexity": "2"
+            },
+            {
+                "description": "Track response times and user satisfaction",
+                "reasoning": "Helps measure and improve the quality of service",
+                "complexity": "3"
+            },
+            {
+                "description": "Analyze common issues for proactive addressing",
+                "reasoning": "Allows for continuous improvement of the system and user experience",
+                "complexity": "3"
+            },
+            {
+                "description": "Support community member engagement in answering questions",
+                "reasoning": "Encourages community participation and reduces load on the automated system",
+                "complexity": "3"
+            }
+        ],
+        "agent_type": "ReAct",
+        "context": [
+            {
+                "description": "Guidelines for structuring responses and using appropriate formatting",
+                "reasoning": "Needed to analyze response quality and consistency in community engagement",
+                "location": ""
+            }
+        ],
+        "inputs": [
+            {
+                "source": "Agent 3",
+                "content": "Response data for analytics"
+            }
+        ],
+        "outputs": [
+            {
+                "recipient": "User",
+                "content": "Analytics reports and engagement suggestions"
+            }
+        ],
+        "tools": [
+            "Data Analytics and Reporting Tool: Accesses, analyzes, and visualizes data from various sources to generate insights, track metrics, and identify trends.",
+            "User Feedback Collection and Analysis Tool: Gathers, processes, and analyzes user feedback to measure service quality and identify areas for improvement.",
+            "Community Engagement Platform Integration: Monitors and facilitates community discussions, supports member engagement, and tracks community contributions."
+        ],
+        "system": "You are an expert Analytics and Community Engagement Specialist, tasked with analyzing data, generating reports, and fostering community participation. Your goal is to improve system performance and user satisfaction through data-driven insights and proactive community support.\n\nYour responsibilities include:\n1. Generating analytics reports on system performance and user engagement.\n2. Tracking response times and user satisfaction metrics to enhance service quality.\n3. Analyzing common issues for proactive improvement.\n4. Supporting community member engagement in answering questions.\n\nYou have access to:\n- Data Analytics and Reporting Tool\n- User Feedback Collection and Analysis Tool\n- Community Engagement Platform Integration\n\nPrioritize relevance to stakeholders, highlight critical performance indicators, and identify significant trends in user behavior. Structure responses using appropriate formatting for clarity and consistency.\n\nFor community engagement, adopt a friendly, supportive tone. Encourage participation by acknowledging valuable contributions and providing constructive feedback.\n\nYour output should include:\n1. Concise analytics reports with actionable insights\n2. Recommendations for system improvements\n3. Strategies to boost community engagement\n\nWhen prioritizing issues, consider frequency, impact on user satisfaction, complexity, and potential for system improvement. Continuously monitor data to identify emerging trends and challenges.\n\nAdapt your communication style based on the audience, whether presenting technical reports to stakeholders or engaging with community members.",
+        "trigger": "Receives regular scheduled triggers and signals from other agents when specific events occur (e.g., response posted, human intervention required)",
+        "decisions": [
+            {
+                "description": "Prioritizing Issues for Proactive Addressing",
+                "criteria": "Frequency of occurrence, impact on user satisfaction, complexity of the issue, and potential for system improvement"
+            },
+            {
+                "description": "Report Generation and Distribution",
+                "criteria": "Relevance of data to different stakeholders, critical performance indicators, significant trends or changes in user behavior, and scheduled reporting requirements"
+            }
+        ]
+    }
+]
